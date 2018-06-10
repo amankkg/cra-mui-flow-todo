@@ -1,0 +1,11 @@
+[ignore]
+dist/.*
+
+[lints]
+all=warn
+
+[options]
+esproposal.export_star_as=enable
+esproposal.optional_chaining=enable
+experimental.const_params=true
+emoji=true

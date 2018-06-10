@@ -1,0 +1,9 @@
+{
+  "env": {
+    "jest": true,
+    "node": true
+  },
+  "extends": ["react-app"],
+  "parser": "babel-eslint",
+  "plugins": ["babel", "flowtype"]
+}
