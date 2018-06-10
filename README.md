@@ -1,4 +1,4 @@
-[WIP] Todo app w/ material-ui, flowtype, and IO via localStorage.
+# [WIP] Todo app w/ material-ui, flowtype, and IO via localStorage.
 This test project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
