@@ -4,6 +4,15 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import {Checkbox} from '@material-ui/core'
+
+import {
+  uid,
+  getTodos,
+  saveTodos,
+  wipeTodos,
+  removeTodo,
+} from './todoFacades'
 
 type Todo = {|
   id: number,
@@ -15,22 +24,21 @@ type State = {|
   next: string,
 |}
 
-let uniqueId = 0
-const uid = () => uniqueId++
-
 export default class TodoList extends React.Component<
   void,
   State,
 > {
   state = {
-    todos: [],
+    todos: getTodos() || [],
     next: '',
   }
 
-  editNext = e => this.setState({next: e.target.value})
+  editNext = e =>
+    this.setState({next: e.currentTarget.value})
 
-  addNext = e =>
-    e.preventDefault() ||
+  addNext = e => {
+    e.preventDefault()
+
     this.setState(
       state => ({
         todos: [
@@ -39,13 +47,19 @@ export default class TodoList extends React.Component<
         ],
         next: '',
       }),
-      () => localStorage.setItem('todos', this.state.todos),
+      () => saveTodos(this.state.todos),
+    )
+  }
+
+  remove = id => () =>
+    this.setState(
+      state => ({
+        todos: state.todos.filter(todo => todo.id !== id),
+      }),
+      () => removeTodo(id),
     )
 
-  clear = () =>
-    this.setState({todos: []}, () =>
-      localStorage.removeItem('todos'),
-    )
+  clear = () => this.setState({todos: []}, wipeTodos)
 
   render() {
     return (
@@ -68,7 +82,12 @@ export default class TodoList extends React.Component<
         </form>
         <List>
           {this.state.todos.map(todo => (
-            <ListItem key={todo.id}>- {todo.text}</ListItem>
+            <ListItem key={todo.id}>
+              <Checkbox title="WIP" disabled />{' '}
+              <span onClick={this.remove(todo.id)}>
+                {todo.text}
+              </span>
+            </ListItem>
           ))}
         </List>
         <Button
