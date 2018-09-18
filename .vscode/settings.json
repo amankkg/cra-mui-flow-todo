@@ -8,5 +8,9 @@
     ".vscode": true,
     "node_modules": true,
     "package-lock.json": true
-  }
+  },
+  "javascript.validate.enable": false,
+  "flow.enabled": true,
+  "flow.useNPMPackagedFlow": false,
+  "flow.useLSP": true
 }
