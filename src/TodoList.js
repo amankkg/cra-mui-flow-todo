@@ -1,11 +1,8 @@
 // @flow
 import * as React from 'react'
 import Button from '@material-ui/core/Button'
-import Checkbox from '@material-ui/core/Checkbox'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import TextField from '@material-ui/core/TextField'
-import DeleteForever from '@material-ui/icons/DeleteForever'
 
 import {
   uid,
@@ -15,6 +12,8 @@ import {
   removeTodo,
   toggleTodo,
 } from './todoFacades'
+import NewItemForm from './NewItemForm'
+import TodoItem from './TodoItem'
 
 type Todo = {|
   id: number,
@@ -24,7 +23,6 @@ type Todo = {|
 
 type State = {|
   todos: Array<Todo>,
-  next: string,
 |}
 
 export default class TodoList extends React.Component<
@@ -33,26 +31,19 @@ export default class TodoList extends React.Component<
 > {
   state = {
     todos: getTodos() || [],
-    next: '',
   }
 
-  editNext = e =>
-    this.setState({next: e.currentTarget.value})
-
-  addNext = e => {
-    e.preventDefault()
-
+  addNext = text =>
     this.setState(
       state => ({
         todos: [
           ...state.todos,
-          {text: state.next, id: uid(), checked: false},
+          {id: uid(), checked: false, text},
         ],
         next: '',
       }),
       () => saveTodos(this.state.todos),
     )
-  }
 
   toggle = id => () =>
     this.setState(
@@ -81,34 +72,14 @@ export default class TodoList extends React.Component<
     return (
       <React.Fragment>
         <br />
-        <form onSubmit={this.addNext}>
-          <TextField
-            value={this.state.next}
-            onChange={this.editNext}
-            label="anything else to do?..."
-            margin="normal"
-          />
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-          >
-            add
-          </Button>
-        </form>
+        <NewItemForm add={this.addNext} />
         <List>
           {this.state.todos.map(todo => (
             <ListItem key={todo.id}>
-              <Checkbox
-                checked={todo.checked}
-                onClick={this.toggle(todo.id)}
-              />
-              &nbsp;
-              {todo.text}
-              &nbsp; &nbsp;
-              <DeleteForever
-                onClick={this.remove(todo.id)}
-                color="error"
+              <TodoItem
+                todo={todo}
+                toggle={this.toggle(todo.id)}
+                remove={this.remove(todo.id)}
               />
             </ListItem>
           ))}
