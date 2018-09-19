@@ -1,12 +1,11 @@
 // @flow
 import * as React from 'react'
-import {
-  Button,
-  Checkbox,
-  List,
-  ListItem,
-  TextField,
-} from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import Checkbox from '@material-ui/core/Checkbox'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import TextField from '@material-ui/core/TextField'
+import DeleteForever from '@material-ui/icons/DeleteForever'
 
 import {
   uid,
@@ -14,11 +13,13 @@ import {
   saveTodos,
   wipeTodos,
   removeTodo,
+  toggleTodo,
 } from './todoFacades'
 
 type Todo = {|
   id: number,
   text: string,
+  checked: boolean,
 |}
 
 type State = {|
@@ -45,13 +46,26 @@ export default class TodoList extends React.Component<
       state => ({
         todos: [
           ...state.todos,
-          {text: state.next, id: uid()},
+          {text: state.next, id: uid(), checked: false},
         ],
         next: '',
       }),
       () => saveTodos(this.state.todos),
     )
   }
+
+  toggle = id => () =>
+    this.setState(
+      state => ({
+        todos: state.todos.map(
+          todo =>
+            todo.id === id
+              ? {...todo, checked: !todo.checked}
+              : todo,
+        ),
+      }),
+      () => toggleTodo(id),
+    )
 
   remove = id => () =>
     this.setState(
@@ -85,10 +99,17 @@ export default class TodoList extends React.Component<
         <List>
           {this.state.todos.map(todo => (
             <ListItem key={todo.id}>
-              <Checkbox title="WIP" disabled />{' '}
-              <span onClick={this.remove(todo.id)}>
-                {todo.text}
-              </span>
+              <Checkbox
+                checked={todo.checked}
+                onClick={this.toggle(todo.id)}
+              />
+              &nbsp;
+              {todo.text}
+              &nbsp; &nbsp;
+              <DeleteForever
+                onClick={this.remove(todo.id)}
+                color="error"
+              />
             </ListItem>
           ))}
         </List>
