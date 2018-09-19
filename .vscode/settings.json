@@ -11,6 +11,6 @@
   },
   "javascript.validate.enable": false,
   "flow.enabled": true,
-  "flow.useNPMPackagedFlow": false,
+  "flow.useNPMPackagedFlow": true,
   "flow.useLSP": true
 }
