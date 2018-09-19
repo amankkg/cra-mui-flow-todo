@@ -28,10 +28,13 @@
     "flow-bin": "^0.81.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
+    "now": "^11.4.5",
     "prettier": "^1.14.2"
   },
   "jest": {
-    "setupFiles": ["./src/browserMocks.js"]
+    "setupFiles": [
+      "./src/browserMocks.js"
+    ]
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
