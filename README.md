@@ -1,8 +1,10 @@
-# [WIP] Todo app w/ material-ui, flowtype, and IO via localStorage.
+# Demo todo app w/ cra, material-ui, flowtype, and IO via localStorage.
 
-deploy using zeit/now:
+Bootstrapped using facebook/create-react-app.
+
+Deploy using zeit/now:
 
 ```
 npm run build
-npx now ./build --name todo-demo
+npm run deploy
 ```
