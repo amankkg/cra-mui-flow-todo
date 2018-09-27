@@ -14,15 +14,17 @@ export default class NewItemForm extends React.Component<
   submit = e => {
     e.preventDefault()
 
-    this.props.add(this.state.value)
+    this.props.add(this.state.value.trim())
     this.setState({value: ''})
   }
 
   render() {
+    const {value} = this.state
+
     return (
       <form onSubmit={this.submit}>
         <TextField
-          value={this.state.value}
+          value={value}
           onChange={this.edit}
           label="anything else to do?..."
           margin="normal"
@@ -32,6 +34,7 @@ export default class NewItemForm extends React.Component<
           type="submit"
           color="primary"
           variant="contained"
+          disabled={value.trim().length === 0}
         >
           add
         </Button>
