@@ -22,7 +22,7 @@ type Todo = {|
 |}
 
 type State = {|
-  todos: Array<Todo>,
+  items: Array<Todo>,
 |}
 
 export default class TodoList extends React.Component<
@@ -30,25 +30,25 @@ export default class TodoList extends React.Component<
   State,
 > {
   state = {
-    todos: getTodos() || [],
+    items: getTodos() || [],
   }
 
   addNext = text =>
     this.setState(
       state => ({
-        todos: [
-          ...state.todos,
+        items: [
+          ...state.items,
           {id: uid(), checked: false, text},
         ],
         next: '',
       }),
-      () => saveTodos(this.state.todos),
+      () => saveTodos(this.state.items),
     )
 
   toggle = id => () =>
     this.setState(
       state => ({
-        todos: state.todos.map(
+        items: state.items.map(
           todo =>
             todo.id === id
               ? {...todo, checked: !todo.checked}
@@ -61,21 +61,23 @@ export default class TodoList extends React.Component<
   remove = id => () =>
     this.setState(
       state => ({
-        todos: state.todos.filter(todo => todo.id !== id),
+        items: state.items.filter(todo => todo.id !== id),
       }),
       () => removeTodo(id),
     )
 
-  clear = () => this.setState({todos: []}, wipeTodos)
+  clear = () => this.setState({items: []}, wipeTodos)
 
   render() {
+    const {items} = this.state
+
     return (
       <React.Fragment>
         <br />
         <NewItemForm add={this.addNext} />
-        <List>
-          {this.state.todos.map(todo => (
-            <ListItem key={todo.id}>
+        <List className="todo-list">
+          {items.map(todo => (
+            <ListItem key={todo.id} className="todo-item">
               <TodoItem
                 todo={todo}
                 toggle={this.toggle(todo.id)}
@@ -84,13 +86,15 @@ export default class TodoList extends React.Component<
             </ListItem>
           ))}
         </List>
-        <Button
-          onClick={this.clear}
-          variant="contained"
-          color="secondary"
-        >
-          clear
-        </Button>
+        {items.length > 0 && (
+          <Button
+            onClick={this.clear}
+            variant="contained"
+            color="secondary"
+          >
+            clear
+          </Button>
+        )}
       </React.Fragment>
     )
   }

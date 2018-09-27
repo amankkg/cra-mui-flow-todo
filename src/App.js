@@ -9,18 +9,20 @@ class App extends React.Component<void, void> {
     return (
       <React.Fragment>
         <CssBaseline />
-        <div className="App">
-          <header className="App-header">
+        <div className="app">
+          <header className="app-header">
             <img
               src={logo}
-              className="App-logo"
+              className="app-logo"
               alt="logo"
             />
-            <h1 className="App-title">
+            <h1 className="app-title">
               Welcome to demo app
             </h1>
           </header>
-          <TodoList />
+          <div className="app-body">
+            <TodoList />
+          </div>
         </div>
       </React.Fragment>
     )
