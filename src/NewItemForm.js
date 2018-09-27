@@ -27,6 +27,7 @@ export default class NewItemForm extends React.Component<
           label="anything else to do?..."
           margin="normal"
         />
+        &nbsp;
         <Button
           type="submit"
           color="primary"

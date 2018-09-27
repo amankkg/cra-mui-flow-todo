@@ -1,6 +1,7 @@
 // @flow
 import * as React from 'react'
 import Checkbox from '@material-ui/core/Checkbox'
+import IconButton from '@material-ui/core/IconButton'
 import DeleteForever from '@material-ui/icons/DeleteForever'
 
 type Props = {|
@@ -13,8 +14,12 @@ export default ({todo, toggle, remove}): Props => (
   <React.Fragment>
     <Checkbox checked={todo.checked} onClick={toggle} />
     &nbsp;
-    {todo.text}
+    <span onClick={toggle} className="pointer">
+      {todo.text}
+    </span>
     &nbsp; &nbsp;
-    <DeleteForever onClick={remove} color="error" />
+    <IconButton onClick={remove}>
+      <DeleteForever color="error" />
+    </IconButton>
   </React.Fragment>
 )
