@@ -3,7 +3,6 @@ import * as React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import TodoList from './TodoList'
 import logo from './logo.svg'
-import './App.css'
 
 class App extends React.Component<void, void> {
   render() {
@@ -17,7 +16,9 @@ class App extends React.Component<void, void> {
               className="App-logo"
               alt="logo"
             />
-            <h1 className="App-title">Welcome to React</h1>
+            <h1 className="App-title">
+              Welcome to demo app
+            </h1>
           </header>
           <TodoList />
         </div>
