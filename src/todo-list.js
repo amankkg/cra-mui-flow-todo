@@ -12,8 +12,8 @@ import {
   removeTodo,
   toggleTodo,
 } from './todoFacades'
-import NewItemForm from './NewItemForm'
-import TodoItem from './TodoItem'
+import NewItemForm from './new-item-form'
+import TodoItem from './todo-item'
 
 type Todo = {|
   id: number,

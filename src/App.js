@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import TodoList from './TodoList'
+import TodoList from './todo-list'
 import logo from './logo.svg'
 
 class App extends React.Component<void, void> {
