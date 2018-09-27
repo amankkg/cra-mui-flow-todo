@@ -24,7 +24,7 @@ export default ({todo, toggle, remove}): Props => (
     </span>
     &nbsp; &nbsp;
     <IconButton onClick={remove}>
-      <DeleteForever color="error" />
+      <DeleteForever color="secondary" />
     </IconButton>
   </React.Fragment>
 )

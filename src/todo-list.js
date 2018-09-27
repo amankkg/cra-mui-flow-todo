@@ -1,8 +1,10 @@
 // @flow
 import * as React from 'react'
-import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
+import IconButton from '@material-ui/core/IconButton'
+import Badge from '@material-ui/core/Badge'
+import DeleteSweep from '@material-ui/icons/DeleteSweep'
 
 import {
   uid,
@@ -85,16 +87,21 @@ export default class TodoList extends React.Component<
               />
             </ListItem>
           ))}
+          <br />
+          {items.length > 0 && (
+            <IconButton
+              className="clear-button"
+              onClick={this.clear}
+            >
+              <Badge
+                badgeContent={items.length}
+                color="secondary"
+              >
+                <DeleteSweep color="secondary" />
+              </Badge>
+            </IconButton>
+          )}
         </List>
-        {items.length > 0 && (
-          <Button
-            onClick={this.clear}
-            variant="contained"
-            color="secondary"
-          >
-            clear
-          </Button>
-        )}
       </React.Fragment>
     )
   }

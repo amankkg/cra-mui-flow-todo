@@ -64,3 +64,7 @@ body {
 .todo-text-checked {
   text-decoration: line-through;
 }
+
+.clear-button {
+  float: right;
+}
