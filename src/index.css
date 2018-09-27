@@ -60,3 +60,7 @@ body {
   width: 100%;
   cursor: pointer;
 }
+
+.todo-text-checked {
+  text-decoration: line-through;
+}

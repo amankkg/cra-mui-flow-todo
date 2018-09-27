@@ -14,7 +14,12 @@ export default ({todo, toggle, remove}): Props => (
   <React.Fragment>
     <Checkbox checked={todo.checked} onClick={toggle} />
     &nbsp;
-    <span onClick={toggle} className="todo-text">
+    <span
+      onClick={toggle}
+      className={`todo-text ${
+        todo.checked ? 'todo-text-checked' : ''
+      }`}
+    >
       {todo.text}
     </span>
     &nbsp; &nbsp;
