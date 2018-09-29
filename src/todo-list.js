@@ -2,9 +2,6 @@
 import * as React from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import IconButton from '@material-ui/core/IconButton'
-import Badge from '@material-ui/core/Badge'
-import DeleteSweep from '@material-ui/icons/DeleteSweep'
 
 import {
   createTodo,
@@ -16,6 +13,7 @@ import {
 } from './facades'
 import {TodoNew} from './todo-new'
 import {TodoItem} from './todo-item'
+import {DeleteAllButton} from './delete-all-button'
 
 type Todo = {|
   id: string,
@@ -27,7 +25,7 @@ type State = {|
   items: Array<Todo>,
 |}
 
-const byCreated = (a, b) => b.created - a.created
+const byCreatedDesc = (a, b) => b.created - a.created
 
 class TodoList extends React.Component<void, State> {
   state = {
@@ -65,29 +63,22 @@ class TodoList extends React.Component<void, State> {
 
   render() {
     const {items} = this.state
-    const showClearAll = items.length > 1
-    const ordered = items.sort(byCreated)
 
     return (
       <React.Fragment>
         <br />
         <TodoNew add={this.addNext} />
         <List className="todo-list">
-          {showClearAll && (
-            <IconButton
-              className="clear-button"
-              onClick={this.clear}
-            >
-              <Badge
-                badgeContent={items.length}
-                color="secondary"
-              >
-                <DeleteSweep color="secondary" />
-              </Badge>
-            </IconButton>
+          {items.length > 1 && (
+            <React.Fragment>
+              <DeleteAllButton
+                onClick={this.clear}
+                total={items.length}
+              />
+              <br />
+            </React.Fragment>
           )}
-          {showClearAll && <br />}
-          {ordered.map(todo => (
+          {items.sort(byCreatedDesc).map(todo => (
             <ListItem key={todo.id} className="todo-item">
               <TodoItem
                 todo={todo}

@@ -15,15 +15,19 @@ const TodoItem = ({todo, toggle, remove}): Props => {
     todo.done ? 'todo-text-done' : ''
   }`
 
-  const onToggle = e => toggle(todo.id, e.target.checked)
-
+  const clickCheckbox = e =>
+    toggle(todo.id, e.target.checked)
+  const clickText = () => toggle(todo.id, !todo.done)
   const onRemove = () => remove(todo.id)
 
   return (
     <React.Fragment>
-      <Checkbox checked={todo.done} onClick={onToggle} />
+      <Checkbox
+        checked={todo.done}
+        onClick={clickCheckbox}
+      />
       &nbsp;
-      <span onClick={toggle} className={todoClasses}>
+      <span onClick={clickText} className={todoClasses}>
         {todo.text}
       </span>
       &nbsp; &nbsp;
