@@ -20,7 +20,7 @@ import {TodoItem} from './todo-item'
 type Todo = {|
   id: string,
   text: string,
-  checked: boolean,
+  done: boolean,
 |}
 
 type State = {|
@@ -32,32 +32,29 @@ class TodoList extends React.Component<void, State> {
     items: getTodos() || [],
   }
 
-  addNext = (text: string) =>
+  addNext = text =>
     this.setState(
       state => ({
         items: [
           ...state.items,
-          {id: uid(), checked: false, text},
+          {id: uid(), done: false, text},
         ],
         next: '',
       }),
       () => saveTodos(this.state.items),
     )
 
-  toggle = id => () =>
+  toggle = (id, done) =>
     this.setState(
       state => ({
         items: state.items.map(
-          todo =>
-            todo.id === id
-              ? {...todo, checked: !todo.checked}
-              : todo,
+          todo => (todo.id === id ? {...todo, done} : todo),
         ),
       }),
       () => toggleTodo(id),
     )
 
-  remove = id => () =>
+  remove = id =>
     this.setState(
       state => ({
         items: state.items.filter(todo => todo.id !== id),
@@ -79,8 +76,8 @@ class TodoList extends React.Component<void, State> {
             <ListItem key={todo.id} className="todo-item">
               <TodoItem
                 todo={todo}
-                toggle={this.toggle(todo.id)}
-                remove={this.remove(todo.id)}
+                toggle={this.toggle}
+                remove={this.remove}
               />
             </ListItem>
           ))}

@@ -61,7 +61,7 @@ body {
   cursor: pointer;
 }
 
-.todo-text-checked {
+.todo-text-done {
   text-decoration: line-through;
 }
 

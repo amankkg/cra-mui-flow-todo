@@ -5,25 +5,29 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteForever from '@material-ui/icons/DeleteForever'
 
 type Props = {|
-  todo: {|text: string, checked: boolean|},
+  todo: {|id: string, text: string, done: boolean|},
   toggle: () => void,
   remove: () => void,
 |}
 
 const TodoItem = ({todo, toggle, remove}): Props => {
   const todoClasses = `todo-text ${
-    todo.checked ? 'todo-text-checked' : ''
+    todo.done ? 'todo-text-done' : ''
   }`
+
+  const onToggle = e => toggle(todo.id, e.target.checked)
+
+  const onRemove = () => remove(todo.id)
 
   return (
     <React.Fragment>
-      <Checkbox checked={todo.checked} onClick={toggle} />
+      <Checkbox checked={todo.done} onClick={onToggle} />
       &nbsp;
       <span onClick={toggle} className={todoClasses}>
         {todo.text}
       </span>
       &nbsp; &nbsp;
-      <IconButton onClick={remove}>
+      <IconButton onClick={onRemove}>
         <DeleteForever color="secondary" />
       </IconButton>
     </React.Fragment>

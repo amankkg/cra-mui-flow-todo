@@ -16,9 +16,7 @@ export const toggleTodo = id =>
   saveTodos(
     getTodos().map(
       todo =>
-        todo.id === id
-          ? {...todo, checked: !todo.checked}
-          : todo,
+        todo.id === id ? {...todo, done: !todo.done} : todo,
     ),
   )
 
