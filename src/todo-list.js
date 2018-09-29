@@ -13,7 +13,7 @@ import {
   wipeTodos,
   removeTodo,
   toggleTodo,
-} from './todo-facades'
+} from './facades'
 import {TodoNew} from './todo-new'
 import {TodoItem} from './todo-item'
 

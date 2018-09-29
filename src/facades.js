@@ -1,7 +1,7 @@
 // @flow
-import nanoid from 'nanoid'
+import nanoId from 'nanoid'
 
-export const uid = () => nanoid()
+export const uid = () => nanoId()
 
 export const getTodos = () =>
   JSON.parse(localStorage.getItem('todos'))
