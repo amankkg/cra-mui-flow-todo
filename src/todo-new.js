@@ -5,13 +5,16 @@ import TextField from '@material-ui/core/TextField'
 
 type Props = {|add: string => void|}
 type State = {|value: string|}
+type InputEvent = {currentTarget: {value: string}}
+type SubmitEvent = {preventDefault: () => void}
 
 class TodoNew extends React.Component<Props, State> {
   state = {value: ''}
 
-  edit = e => this.setState({value: e.currentTarget.value})
+  edit = (e: InputEvent) =>
+    this.setState({value: e.currentTarget.value})
 
-  submit = e => {
+  submit = (e: SubmitEvent) => {
     e.preventDefault()
 
     this.props.add(this.state.value.trim())

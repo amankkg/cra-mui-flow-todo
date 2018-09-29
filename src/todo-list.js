@@ -14,34 +14,29 @@ import {
 import {TodoNew} from './todo-new'
 import {TodoItem} from './todo-item'
 import {DeleteAllButton} from './delete-all-button'
-
-type Todo = {|
-  id: string,
-  text: string,
-  done: boolean,
-|}
+import type {Todo} from './types.flow.js'
 
 type State = {|
   items: Array<Todo>,
 |}
 
-const byCreatedDesc = (a, b) => b.created - a.created
+const byCreatedDesc = (a: Todo, b: Todo) =>
+  b.created - a.created
 
-class TodoList extends React.Component<void, State> {
+class TodoList extends React.Component<{}, State> {
   state = {
     items: fetchTodos() || [],
   }
 
-  addNext = text =>
+  addNext = (text: string) =>
     this.setState(
       state => ({
         items: [...state.items, createTodo(text)],
-        next: '',
       }),
       () => saveTodos(this.state.items),
     )
 
-  toggle = (id, done) =>
+  toggle = (id: string, done: boolean) =>
     this.setState(
       state => ({
         items: state.items.map(
@@ -51,7 +46,7 @@ class TodoList extends React.Component<void, State> {
       () => toggleTodo(id),
     )
 
-  remove = id =>
+  remove = (id: string) =>
     this.setState(
       state => ({
         items: state.items.filter(todo => todo.id !== id),

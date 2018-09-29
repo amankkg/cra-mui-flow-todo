@@ -1,29 +1,40 @@
 // @flow
 import nanoId from 'nanoid'
 
-export const createTodo = text => ({
+import type {Todo} from './types.flow.js'
+
+export const createTodo = (text: string) => ({
   id: nanoId(),
   created: Date.now(),
   done: false,
   text,
 })
 
-export const fetchTodos = () =>
-  JSON.parse(localStorage.getItem('todos'))
+export const fetchTodos = () => {
+  const value = localStorage.getItem('todos')
+  return value ? JSON.parse(value) : undefined
+}
 
-export const saveTodos = todos =>
+export const saveTodos = (todos: Array<Todo>) =>
   localStorage.setItem('todos', JSON.stringify(todos))
 
 export const wipeTodos = () =>
   localStorage.removeItem('todos')
 
-export const toggleTodo = id =>
-  saveTodos(
-    fetchTodos().map(
-      todo =>
-        todo.id === id ? {...todo, done: !todo.done} : todo,
-    ),
-  )
+export const toggleTodo = (id: string) => {
+  const todos = fetchTodos()
+  if (todos)
+    saveTodos(
+      todos.map(
+        todo =>
+          todo.id === id
+            ? {...todo, done: !todo.done}
+            : todo,
+      ),
+    )
+}
 
-export const removeTodo = id =>
-  saveTodos(fetchTodos().filter(todo => todo.id !== id))
+export const removeTodo = (id: string) => {
+  const todos = fetchTodos()
+  if (todos) saveTodos(todos.filter(todo => todo.id !== id))
+}

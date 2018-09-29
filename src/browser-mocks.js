@@ -1,3 +1,5 @@
+// @flow
+
 const createLocalStorageMock = () => {
   let store = {}
 

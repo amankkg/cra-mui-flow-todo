@@ -5,7 +5,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import {TodoList} from './todo-list'
 import logo from './logo.svg'
 
-class App extends React.Component<void, void> {
+class App extends React.Component<{}, void> {
   render() {
     return (
       <React.Fragment>

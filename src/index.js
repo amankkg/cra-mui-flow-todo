@@ -7,5 +7,8 @@ import {App} from './app'
 import * as sw from './service-worker'
 import './index.css'
 
-render(<App />, document.getElementById('root'))
+const rootElement = document.getElementById('root')
+
+if (rootElement != null) render(<App />, rootElement)
+
 sw.register()

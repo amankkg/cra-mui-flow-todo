@@ -9,12 +9,16 @@ type Props = {|
   onClick: () => void,
 |}
 
-const DeleteAllButton = ({onClick, total}): Props => (
-  <IconButton className="clear-button" onClick={onClick}>
-    <Badge badgeContent={total} color="secondary">
-      <DeleteSweep color="secondary" />
-    </Badge>
-  </IconButton>
-)
+const DeleteAllButton = (props: Props) => {
+  const {total, onClick} = props
+
+  return (
+    <IconButton className="clear-button" onClick={onClick}>
+      <Badge badgeContent={total} color="secondary">
+        <DeleteSweep color="secondary" />
+      </Badge>
+    </IconButton>
+  )
+}
 
 export {DeleteAllButton}
