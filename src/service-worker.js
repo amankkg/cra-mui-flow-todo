@@ -18,7 +18,7 @@ const isLocalhost = Boolean(
     ),
 )
 
-export default function register() {
+function register() {
   if (
     process.env.NODE_ENV === 'production' &&
     'serviceWorker' in navigator
@@ -125,10 +125,12 @@ function checkValidServiceWorker(swUrl) {
     })
 }
 
-export function unregister() {
+function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister()
     })
   }
 }
+
+export {register, unregister}

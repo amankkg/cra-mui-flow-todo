@@ -10,21 +10,24 @@ type Props = {|
   remove: () => void,
 |}
 
-export default ({todo, toggle, remove}): Props => (
-  <React.Fragment>
-    <Checkbox checked={todo.checked} onClick={toggle} />
-    &nbsp;
-    <span
-      onClick={toggle}
-      className={`todo-text ${
-        todo.checked ? 'todo-text-checked' : ''
-      }`}
-    >
-      {todo.text}
-    </span>
-    &nbsp; &nbsp;
-    <IconButton onClick={remove}>
-      <DeleteForever color="secondary" />
-    </IconButton>
-  </React.Fragment>
-)
+const TodoItem = ({todo, toggle, remove}): Props => {
+  const todoClasses = `todo-text ${
+    todo.checked ? 'todo-text-checked' : ''
+  }`
+
+  return (
+    <React.Fragment>
+      <Checkbox checked={todo.checked} onClick={toggle} />
+      &nbsp;
+      <span onClick={toggle} className={todoClasses}>
+        {todo.text}
+      </span>
+      &nbsp; &nbsp;
+      <IconButton onClick={remove}>
+        <DeleteForever color="secondary" />
+      </IconButton>
+    </React.Fragment>
+  )
+}
+
+export {TodoItem}

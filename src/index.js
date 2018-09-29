@@ -1,9 +1,11 @@
+// @flow
 import 'typeface-roboto'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './app'
-import registerServiceWorker from './registerServiceWorker'
+import * as React from 'react'
+import {render} from 'react-dom'
 
-ReactDOM.render(<App />, document.getElementById('root'))
-registerServiceWorker()
+import {App} from './app'
+import * as sw from './service-worker'
+import './index.css'
+
+render(<App />, document.getElementById('root'))
+sw.register()

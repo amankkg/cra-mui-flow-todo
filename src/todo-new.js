@@ -3,10 +3,10 @@ import * as React from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 
-export default class NewItemForm extends React.Component<
-  {|add: String => void|},
-  {|value: String|},
-> {
+type Props = {|add: string => void|}
+type State = {|value: string|}
+
+class TodoNew extends React.Component<Props, State> {
   state = {value: ''}
 
   edit = e => this.setState({value: e.currentTarget.value})
@@ -42,3 +42,5 @@ export default class NewItemForm extends React.Component<
     )
   }
 }
+
+export {TodoNew}

@@ -13,12 +13,12 @@ import {
   wipeTodos,
   removeTodo,
   toggleTodo,
-} from './todoFacades'
-import NewItemForm from './new-item-form'
-import TodoItem from './todo-item'
+} from './todo-facades'
+import {TodoNew} from './todo-new'
+import {TodoItem} from './todo-item'
 
 type Todo = {|
-  id: number,
+  id: string,
   text: string,
   checked: boolean,
 |}
@@ -27,15 +27,12 @@ type State = {|
   items: Array<Todo>,
 |}
 
-export default class TodoList extends React.Component<
-  void,
-  State,
-> {
+class TodoList extends React.Component<void, State> {
   state = {
     items: getTodos() || [],
   }
 
-  addNext = text =>
+  addNext = (text: string) =>
     this.setState(
       state => ({
         items: [
@@ -76,7 +73,7 @@ export default class TodoList extends React.Component<
     return (
       <React.Fragment>
         <br />
-        <NewItemForm add={this.addNext} />
+        <TodoNew add={this.addNext} />
         <List className="todo-list">
           {items.map(todo => (
             <ListItem key={todo.id} className="todo-item">
@@ -106,3 +103,5 @@ export default class TodoList extends React.Component<
     )
   }
 }
+
+export {TodoList}

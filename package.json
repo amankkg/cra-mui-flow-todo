@@ -33,7 +33,7 @@
   },
   "jest": {
     "setupFiles": [
-      "./src/browserMocks.js"
+      "./src/browser-mocks.js"
     ]
   },
   "lint-staged": {
