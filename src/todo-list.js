@@ -27,6 +27,8 @@ type State = {|
   items: Array<Todo>,
 |}
 
+const byCreated = (a, b) => b.created - a.created
+
 class TodoList extends React.Component<void, State> {
   state = {
     items: fetchTodos() || [],
@@ -63,26 +65,15 @@ class TodoList extends React.Component<void, State> {
 
   render() {
     const {items} = this.state
-    const ordered = items.sort(
-      (a, b) => b.created - a.created,
-    )
+    const showClearAll = items.length > 1
+    const ordered = items.sort(byCreated)
 
     return (
       <React.Fragment>
         <br />
         <TodoNew add={this.addNext} />
         <List className="todo-list">
-          {ordered.map(todo => (
-            <ListItem key={todo.id} className="todo-item">
-              <TodoItem
-                todo={todo}
-                toggle={this.toggle}
-                remove={this.remove}
-              />
-            </ListItem>
-          ))}
-          <br />
-          {items.length > 0 && (
+          {showClearAll && (
             <IconButton
               className="clear-button"
               onClick={this.clear}
@@ -95,6 +86,16 @@ class TodoList extends React.Component<void, State> {
               </Badge>
             </IconButton>
           )}
+          {showClearAll && <br />}
+          {ordered.map(todo => (
+            <ListItem key={todo.id} className="todo-item">
+              <TodoItem
+                todo={todo}
+                toggle={this.toggle}
+                remove={this.remove}
+              />
+            </ListItem>
+          ))}
         </List>
       </React.Fragment>
     )
