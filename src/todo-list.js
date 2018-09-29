@@ -7,9 +7,8 @@ import Badge from '@material-ui/core/Badge'
 import DeleteSweep from '@material-ui/icons/DeleteSweep'
 
 import {
-  getId,
-  getTimestamp,
-  getTodos,
+  createTodo,
+  fetchTodos,
   saveTodos,
   wipeTodos,
   removeTodo,
@@ -30,21 +29,13 @@ type State = {|
 
 class TodoList extends React.Component<void, State> {
   state = {
-    items: getTodos() || [],
+    items: fetchTodos() || [],
   }
 
   addNext = text =>
     this.setState(
       state => ({
-        items: [
-          ...state.items,
-          {
-            id: getId(),
-            created: getTimestamp(),
-            done: false,
-            text,
-          },
-        ],
+        items: [...state.items, createTodo(text)],
         next: '',
       }),
       () => saveTodos(this.state.items),

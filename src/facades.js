@@ -1,11 +1,14 @@
 // @flow
 import nanoId from 'nanoid'
 
-export const getId = () => nanoId()
+export const createTodo = text => ({
+  id: nanoId(),
+  created: Date.now(),
+  done: false,
+  text,
+})
 
-export const getTimestamp = () => Date.now()
-
-export const getTodos = () =>
+export const fetchTodos = () =>
   JSON.parse(localStorage.getItem('todos'))
 
 export const saveTodos = todos =>
@@ -16,11 +19,11 @@ export const wipeTodos = () =>
 
 export const toggleTodo = id =>
   saveTodos(
-    getTodos().map(
+    fetchTodos().map(
       todo =>
         todo.id === id ? {...todo, done: !todo.done} : todo,
     ),
   )
 
 export const removeTodo = id =>
-  saveTodos(getTodos().filter(todo => todo.id !== id))
+  saveTodos(fetchTodos().filter(todo => todo.id !== id))
