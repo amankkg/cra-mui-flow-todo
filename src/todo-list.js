@@ -7,7 +7,8 @@ import Badge from '@material-ui/core/Badge'
 import DeleteSweep from '@material-ui/icons/DeleteSweep'
 
 import {
-  uid,
+  getId,
+  getTimestamp,
   getTodos,
   saveTodos,
   wipeTodos,
@@ -37,7 +38,12 @@ class TodoList extends React.Component<void, State> {
       state => ({
         items: [
           ...state.items,
-          {id: uid(), done: false, text},
+          {
+            id: getId(),
+            created: getTimestamp(),
+            done: false,
+            text,
+          },
         ],
         next: '',
       }),
@@ -66,13 +72,16 @@ class TodoList extends React.Component<void, State> {
 
   render() {
     const {items} = this.state
+    const ordered = items.sort(
+      (a, b) => b.created - a.created,
+    )
 
     return (
       <React.Fragment>
         <br />
         <TodoNew add={this.addNext} />
         <List className="todo-list">
-          {items.map(todo => (
+          {ordered.map(todo => (
             <ListItem key={todo.id} className="todo-item">
               <TodoItem
                 todo={todo}

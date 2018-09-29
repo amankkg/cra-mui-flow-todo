@@ -1,7 +1,9 @@
 // @flow
 import nanoId from 'nanoid'
 
-export const uid = () => nanoId()
+export const getId = () => nanoId()
+
+export const getTimestamp = () => Date.now()
 
 export const getTodos = () =>
   JSON.parse(localStorage.getItem('todos'))
